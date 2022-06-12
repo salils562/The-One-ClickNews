@@ -1,5 +1,5 @@
 let newsApi='214ffd8c044d4f6c8362b916922bc75d';
-let newName='bbc-news';
+let newName='the-times-of-india';
 let xhr=new XMLHttpRequest();
 xhr.open('GET',`https://newsapi.org/v2/top-headlines?sources=${newName}&apiKey=${newsApi}`,true);
 xhr.onprogress=function(){
@@ -7,6 +7,7 @@ xhr.onprogress=function(){
 }
 xhr.onload=function(){ 
 let newsAccordian=document.getElementById('accordionNews');
+if(this.status===200){  
 let txt=JSON.parse(this.responseText);
 let html="";
 txt.articles.forEach((element,index) => {
@@ -24,5 +25,9 @@ txt.articles.forEach((element,index) => {
     </div>`
 });
 newsAccordian.innerHTML=html;
+}
+else{
+  newsAccordian.innerHTML=`<p>Can't Fetch News </br>Sorry ! Some server issue </p>`;
+}
 }
 xhr.send();
